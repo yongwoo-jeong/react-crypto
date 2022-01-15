@@ -90,19 +90,20 @@ const Tab = styled.div<{ isActive: boolean }>`
 const GoHome = styled.div`
   width: 80px;
   height: 30px;
-  position: relative;
-  top: -40px;
-  left: -20px;
+  position: absolute;
+  right: 90px;
+  top: 2%;
+  color: white;
   display: inline;
   span {
     width: 50px;
     font-size: 12px;
     position: relative;
-    bottom: 12px;
+    bottom: 10px;
   }
   svg {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
   }
 `;
 
@@ -208,6 +209,25 @@ function Coin() {
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
+          <Link to={{ pathname: "/" }}>
+            <GoHome>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+                />
+              </svg>
+              <span>Go Back</span>
+            </GoHome>
+          </Link>
         </Title>
       </Header>
       {loading ? (
@@ -215,25 +235,6 @@ function Coin() {
       ) : (
         <>
           <Overview>
-            <Link to={{ pathname: "/" }}>
-              <GoHome>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
-                  />
-                </svg>
-                <span>Go Back</span>
-              </GoHome>
-            </Link>
             <OverviewItem>
               <span>Rank:</span>
               <span>{infoData?.rank}</span>
