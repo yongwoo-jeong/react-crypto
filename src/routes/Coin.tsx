@@ -33,6 +33,7 @@ const Header = styled.header`
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.accentColor};
+  position: absolute;
 `;
 
 const Loader = styled.span`
@@ -87,14 +88,16 @@ const Tab = styled.div<{ isActive: boolean }>`
   }
 `;
 
-const GoHome = styled.div`
+const HomeButton = styled.div`
   width: 80px;
   height: 30px;
-  position: absolute;
-  right: 90px;
-  top: 2%;
+  margin-left: 60px;
   color: white;
   display: inline;
+  position: absolute;
+  left: 24px;
+  top: 40px;
+  opacity: 0.7;
   span {
     width: 50px;
     font-size: 12px;
@@ -201,6 +204,25 @@ function Coin() {
   const loading = infoLoading || tickerLoading;
   return (
     <Container>
+      <Link to={{ pathname: "/" }}>
+        <HomeButton>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+            />
+          </svg>
+          <span>Go Home</span>
+        </HomeButton>
+      </Link>
       <Helmet>
         <title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
@@ -209,25 +231,6 @@ function Coin() {
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
-          <Link to={{ pathname: "/" }}>
-            <GoHome>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
-                />
-              </svg>
-              <span>Go Back</span>
-            </GoHome>
-          </Link>
         </Title>
       </Header>
       {loading ? (
