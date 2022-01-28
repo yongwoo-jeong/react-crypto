@@ -20,7 +20,7 @@ interface ChartProps {
   coinId: string;
 }
 
-const ChartSwitch = styled.button`
+const ChartSwitch = styled.button<{ isdark: boolean }>`
   width: 80px;
   height: 30px;
   border-radius: 20px;
@@ -36,7 +36,7 @@ const ChartSwitch = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  }
+  color: ${(props) => (props.isdark ? "white" : "black")}; ;
 `;
 
 function Chart({ coinId }: ChartProps) {
@@ -141,7 +141,9 @@ function Chart({ coinId }: ChartProps) {
           }}
         />
       )}
-      <ChartSwitch onClick={onClick}>Switch</ChartSwitch>
+      <ChartSwitch isdark={isDark} onClick={onClick}>
+        Switch
+      </ChartSwitch>
     </div>
   );
 }
