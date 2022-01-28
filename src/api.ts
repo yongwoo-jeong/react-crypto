@@ -22,3 +22,9 @@ export function fetchCoinHistory(coinId: string) {
     `${BASE_URL}/coins/${coinId}/ohlcv/historical?start=${startDate}&end=${endDate}`
   ).then((response) => response.json());
 }
+
+export function fetchCoinNews(coinId: string) {
+  return fetch(`${BASE_URL}/coins/${coinId}/events`).then((response) =>
+    response.json()
+  );
+}
