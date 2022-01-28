@@ -75,9 +75,7 @@ function Price({ coinId }: PriceProps) {
       <hr />
       <div>
         <h1>{data?.map((news) => news.name)}</h1>
-        <Description>
-          {data?.map((news) => news.description.slice(0, 100) + " ...")}
-        </Description>
+        <Description>{data?.map((news) => news?.description)}</Description>
       </div>
     </div>
   );
