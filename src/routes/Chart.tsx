@@ -24,7 +24,7 @@ const ChartSwitch = styled.button`
   width: 80px;
   height: 30px;
   border-radius: 20px;
-  background-color: ${(props) => props.theme.buttonColor};
+  background-color: rgba(0, 0, 0, 0.5);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -35,9 +35,7 @@ const ChartSwitch = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  span {
-    color: white;
-    font-size: 14px;
+  font-size: 16px;
   }
 `;
 
@@ -143,7 +141,7 @@ function Chart({ coinId }: ChartProps) {
           }}
         />
       )}
-      <ChartSwitch onClick={onClick}>switch</ChartSwitch>
+      <ChartSwitch onClick={onClick}>Switch</ChartSwitch>
     </div>
   );
 }
