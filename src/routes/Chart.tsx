@@ -1,8 +1,8 @@
 import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
-import { isDarkAtom } from "../atoms";
-import { useRecoilValue } from "recoil";
+import { isCandleAtom, isDarkAtom } from "../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 interface IHistorical {
@@ -50,11 +50,15 @@ function Chart({ coinId }: ChartProps) {
       refetchInterval: 10000,
     }
   );
+  const [candle, setCandle] = useRecoilState(isCandleAtom);
+  const onClick = () => {
+    setCandle((prev) => !prev);
+  };
   return (
     <div>
       {isLoading ? (
         "Loading line chart ..."
-      ) : (
+      ) : candle ? (
         <ApexChart
           type="line"
           series={[
@@ -102,30 +106,44 @@ function Chart({ coinId }: ChartProps) {
             },
           }}
         />
+      ) : (
+        <ApexChart
+          type="candlestick"
+          height={350}
+          series={[
+            {
+              name: "coin price",
+              data: data?.map((price) => [
+                new Date(price.time_close).getTime(),
+                price.open.toFixed(4),
+                price.high.toFixed(4),
+                price.low.toFixed(4),
+                price.close.toFixed(4),
+              ]),
+            },
+          ]}
+          options={{
+            theme: {
+              mode: isDark ? "dark" : "light",
+            },
+            chart: {
+              height: 500,
+              width: 500,
+              toolbar: {
+                show: false,
+              },
+            },
+            xaxis: {
+              type: "datetime",
+              categories: data?.map((time) => time.time_close),
+              axisTicks: {
+                show: false,
+              },
+            },
+          }}
+        />
       )}
-      <ApexChart
-        type="candlestick"
-        height={350}
-        series={[
-          {
-            name: "coin price",
-            data: data?.map((price) => [
-              new Date(price.time_close).getTime(),
-              price.open.toFixed(4),
-              price.high.toFixed(4),
-              price.low.toFixed(4),
-              price.close.toFixed(4),
-            ]),
-          },
-        ]}
-        options={{
-          chart: {
-            height: 500,
-            width: 500,
-          },
-        }}
-      />
-      <ChartSwitch>switch</ChartSwitch>
+      <ChartSwitch onClick={onClick}>switch</ChartSwitch>
     </div>
   );
 }
