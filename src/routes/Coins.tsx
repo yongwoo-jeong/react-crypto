@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { isDarkAtom } from "../atoms";
@@ -45,6 +45,30 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
+const ToggleButton = styled.button`
+  width: 80px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.buttonColor};
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: white;
+    font-size: 14px;
+  }
+`;
+
 const Loader = styled.span`
   display: block;
   text-align: center;
@@ -69,18 +93,38 @@ interface Icoin {
 interface ICoinProps {}
 
 function Coins({}: ICoinProps) {
-  const setDarkAtom = useSetRecoilState(isDarkAtom);
-  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
+  const [isDark, setDarkAtom] = useRecoilState(isDarkAtom);
+  const toggleButtonAtom = () => setDarkAtom((prev) => !prev);
   const { isLoading, data } = useQuery<Icoin[]>("allCoins", fetchCoins);
   return (
     <Container>
       <Helmet>
-        <title>Crypto Tracker</title>
+        <title>track your crypto!</title>
       </Helmet>
       <Header>
         <Title>코인</Title>
-        <button onClick={toggleDarkAtom}>Toggle Mode</button>
       </Header>
+      <ToggleButton onClick={toggleButtonAtom}>
+        {isDark ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            width="25"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            />
+          </svg>
+        ) : (
+          <span>DarkMode</span>
+        )}
+      </ToggleButton>
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (

@@ -3,6 +3,7 @@ import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
 import { isDarkAtom } from "../atoms";
 import { useRecoilValue } from "recoil";
+import styled from "styled-components";
 
 interface IHistorical {
   time_open: string;
@@ -19,9 +20,29 @@ interface ChartProps {
   coinId: string;
 }
 
+const ChartSwitch = styled.button`
+  width: 80px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: ${(props) => props.theme.buttonColor};
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: white;
+    font-size: 14px;
+  }
+`;
+
 function Chart({ coinId }: ChartProps) {
   const isDark = useRecoilValue(isDarkAtom);
-
   const { isLoading, data } = useQuery<IHistorical[]>(
     ["ohlcv", coinId],
     () => fetchCoinHistory(coinId),
@@ -32,7 +53,7 @@ function Chart({ coinId }: ChartProps) {
   return (
     <div>
       {isLoading ? (
-        "Loading chart ..."
+        "Loading line chart ..."
       ) : (
         <ApexChart
           type="line"
@@ -82,6 +103,29 @@ function Chart({ coinId }: ChartProps) {
           }}
         />
       )}
+      <ApexChart
+        type="candlestick"
+        height={350}
+        series={[
+          {
+            name: "coin price",
+            data: data?.map((price) => [
+              new Date(price.time_close).getTime(),
+              price.open.toFixed(4),
+              price.high.toFixed(4),
+              price.low.toFixed(4),
+              price.close.toFixed(4),
+            ]),
+          },
+        ]}
+        options={{
+          chart: {
+            height: 500,
+            width: 500,
+          },
+        }}
+      />
+      <ChartSwitch>switch</ChartSwitch>
     </div>
   );
 }
