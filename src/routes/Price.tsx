@@ -40,13 +40,17 @@ function Price({ coinId }: PriceProps) {
   );
   return (
     <div>
-      <PriceChange>
+      {/*<PriceChange>
         <h1>
           Price change <br />
           in 2 weeks:
         </h1>
-        <h1>{isLoading ? "Calculating..." : {}}</h1>
-      </PriceChange>
+        <h1>
+          {isLoading
+            ? "Calculating..."
+            : data?.map((price) => price.close.toFixed(2))}
+        </h1>
+          </PriceChange>*/}
       <h1>Events</h1>
     </div>
   );
