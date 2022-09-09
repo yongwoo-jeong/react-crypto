@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-crypto/static/js/main.18cace06.js",
+    "main.js": "/react-crypto/static/js/main.76afba20.js",
     "index.html": "/react-crypto/index.html",
-    "main.18cace06.js.map": "/react-crypto/static/js/main.18cace06.js.map"
+    "main.76afba20.js.map": "/react-crypto/static/js/main.76afba20.js.map"
   },
   "entrypoints": [
-    "static/js/main.18cace06.js"
+    "static/js/main.76afba20.js"
   ]
 }
