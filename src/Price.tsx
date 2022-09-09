@@ -15,8 +15,8 @@ const PriceTab = styled.li`
   padding-top: 20px;
 `;
 
-const PriceChange = styled.span<{ isPlus: boolean }>`
-  color: ${(props) => (props.isPlus ? "#df7d46" : "#3c90eb")};
+const PriceChange = styled.span<{ isPlus: number }>`
+  color: ${(props) => (props.isPlus > 0 ? "#df7d46" : "#3c90eb")};
 `;
 
 interface PriceProps {
@@ -27,15 +27,15 @@ function Price({ coinId }: PriceProps) {
   const { isLoading, data } = useQuery<PriceData>(
     ["priceChange", coinId],
     () => fetchCoinTickers(coinId),
-    { refetchInterval: 10000 }
+    {
+      refetchInterval: 10000,
+    }
   );
-  const isPlus = {
-    hour: true,
-    day: true,
-    week: true,
-    month: false,
-    year: false,
-  };
+  var hour = Math.sign(data?.quotes.USD.percent_change_1h || 1);
+  var day = Math.sign(data?.quotes.USD.percent_change_24h || 1);
+  var week = Math.sign(data?.quotes.USD.percent_change_7d || 1);
+  var month = Math.sign(data?.quotes.USD.percent_change_30d || 1);
+  var year = Math.sign(data?.quotes.USD.percent_change_1y || 1);
 
   return (
     <div>
@@ -45,40 +45,40 @@ function Price({ coinId }: PriceProps) {
         <PriceTabs>
           <PriceTab>
             1h CHANGE:{" "}
-            <PriceChange isPlus={isPlus.hour}>
-              {isPlus.hour
+            <PriceChange isPlus={hour}>
+              {hour > 0
                 ? `+${data?.quotes.USD.percent_change_1h}%`
                 : `${data?.quotes.USD.percent_change_1h}%`}
             </PriceChange>
           </PriceTab>
           <PriceTab>
             24h CHANGE:{" "}
-            <PriceChange isPlus={isPlus.day}>
-              {isPlus.day
+            <PriceChange isPlus={day}>
+              {day > 0
                 ? `+${data?.quotes.USD.percent_change_24h}%`
                 : `${data?.quotes.USD.percent_change_24h}%`}
             </PriceChange>
           </PriceTab>
           <PriceTab>
             1 WEEK CHANGE:{" "}
-            <PriceChange isPlus={isPlus.week}>
-              {isPlus.week
+            <PriceChange isPlus={week}>
+              {week > 0
                 ? `+${data?.quotes.USD.percent_change_7d}%`
                 : `${data?.quotes.USD.percent_change_7d}%`}
             </PriceChange>
           </PriceTab>
           <PriceTab>
             1 MONTH CHANGE:{" "}
-            <PriceChange isPlus={isPlus.month}>
-              {isPlus.month
+            <PriceChange isPlus={month}>
+              {month > 0
                 ? `+${data?.quotes.USD.percent_change_30d}%`
                 : `${data?.quotes.USD.percent_change_30d}%`}
             </PriceChange>
           </PriceTab>
           <PriceTab>
             1 YEAR CHANGE:{" "}
-            <PriceChange isPlus={isPlus.year}>
-              {isPlus.year
+            <PriceChange isPlus={year}>
+              {year > 0
                 ? `+${data?.quotes.USD.percent_change_1y}%`
                 : `${data?.quotes.USD.percent_change_1y}%`}
             </PriceChange>
