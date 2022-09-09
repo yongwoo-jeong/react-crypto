@@ -17,6 +17,12 @@ const Header = styled.header`
   align-content: center;
 `;
 
+const DarkToggleBtn = styled.button`
+  position: absolute;
+  right: 5vh;
+  border-radius: 15px;
+`;
+
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
@@ -75,7 +81,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>Coins</Title>
-        <button onClick={toggleDarkAtom}>Toggle Mode</button>
+        <DarkToggleBtn onClick={toggleDarkAtom}>Toggle Mode</DarkToggleBtn>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
