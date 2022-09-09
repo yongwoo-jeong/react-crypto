@@ -7,10 +7,7 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path={`${process.env.PUBLIC_URL}/`} element={<Coins />}></Route>
-        <Route
-          path={`${process.env.PUBLIC_URL}/:coinId/*`}
-          element={<Coin />}
-        ></Route>
+        <Route path={"/:coinId/*"} element={<Coin />}></Route>
       </Routes>
     </BrowserRouter>
   );
