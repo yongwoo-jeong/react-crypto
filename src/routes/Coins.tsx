@@ -81,7 +81,7 @@ function Coins() {
         <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {data?.slice(0, 10).map((coin) => (
+          {data?.slice(0, 200).map((coin) => (
             <Coin key={coin.id}>
               <Link to={`/${coin.id}`} state={{ name: coin.name }}>
                 <Img

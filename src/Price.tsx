@@ -22,7 +22,6 @@ const PriceChange = styled.span<{ isPlus: boolean }>`
 interface PriceProps {
   coinId: string;
 }
-ㅠ;
 
 function Price({ coinId }: PriceProps) {
   const { isLoading, data } = useQuery<PriceData>(
