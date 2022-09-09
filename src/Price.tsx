@@ -32,7 +32,7 @@ function Price({ coinId }: PriceProps) {
   const isPlus = {
     hour: true,
     day: true,
-    week: false,
+    week: true,
     month: false,
     year: false,
   };

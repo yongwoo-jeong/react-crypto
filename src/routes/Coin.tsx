@@ -177,7 +177,7 @@ function Coin() {
       <Header>
         <HeaderContainer>
           <HomeButton>
-            <Link to={"/"}>
+            <Link to={`/`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
